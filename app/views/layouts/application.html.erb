@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blogger</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="head-container">
+    <h1> Some Random Rails Blog. Let the cyber-bullying begin!! </h1>
+  </div>
+
+  <div class="nav-container">
+    <ul>
+      <li> <%= link_to "Articles", articles_path %> </li>
+      <li> <%= link_to "Tags", :controller => :tags, :action => :index %> </li>
+
+      <% if !current_user %>
+        <li> <%= link_to "Register", new_user_path, class: "new_user" %></li>
+        <li> <%= link_to "Login", '/login' %></li>
+      <% else %>
+        <li> <%= link_to current_user.user_name, user_path(current_user) %> </li>
+        <li> <%= link_to "Logout", '/logout' %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="main-container">
+    <p class="flash"><%= flash.notice %></p>
+    <%= yield %>
+  </div>
+
+</body>
+</html>
